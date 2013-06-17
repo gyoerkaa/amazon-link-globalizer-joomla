@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<extension version="2.5" type="plugin" group="system">
+    <name>Amazon Link Globalizer</name>
+    <author>Attila Gyoerkoes, Markus Goetz </author>
+    <creationDate>May 3th, 2013</creationDate>
+    <copyright>2013 Woboq UG (haftungsbeschraenkt)</copyright>
+    <license>GPL v2.0</license>
+    <authorEmail>&lt;gyoerkaa@outlook.com&gt;, &lt;markus@woboq.com&gt;</authorEmail>
+    <authorUrl>http://www.affiliate-geo-target.com/</authorUrl>
+    <version>1.0</version>
+    <description>If you specify your Amazon Affiliate IDs, this plugin will automatically rewrite all Amazon.com/Amzn.com links with ASIN inside your posts
+to the &lt;a href="http://www.affiliate-geo-target.com/amazon.html"&gt;A-FWD&lt;/a&gt; webservice. This webservice
+will determine the users location (using IP Geolocation) and then forward them to their appropriate country store.</description>
+    <files>
+        <filename plugin="amazonlinkglobal">amazonlinkglobal.php</filename>
+    </files>
+    <config>
+    	<fields name="params">
+            <fieldset name="basic">
+                <field name="text-options" type="spacer" default="Affiliate IDs" label="&lt;b&gt;Affiliate/ Tracking ID's&lt;/b&gt;" description="Specify affiliate ID's per country" />
+                <field name="amzn_tid_com" type="text" default="" label="amazon.com"   description="Your tracking ID for amazon.com" />
+                <field name="amzn_tid_ca"  type="text" default="" label="amazon.ca"    description="Your tracking ID for amazon.ca" />
+                <field name="amzn_tid_uk"  type="text" default="" label="amazon.co.uk" description="Your tracking ID for amazon.co.uk" />
+                <field name="amzn_tid_de"  type="text" default="" label="amazon.de"    description="Your tracking ID for amazon.de" />
+                <field name="amzn_tid_fr"  type="text" default="" label="amazon.fr"    description="Your tracking ID for amazon.fr" />
+                <field name="amzn_tid_it"  type="text" default="" label="amazon.it"    description="Your tracking ID for amazon.it" />
+                <field name="amzn_tid_es"  type="text" default="" label="amazon.es"    description="Your tracking ID for amazon.es" />
+                <field name="amzn_tid_jp"  type="text" default="" label="amazon.jp"    description="Your tracking ID for amazon.jp" />
+                <field name="amzn_tid_cn"  type="text" default="" label="amazon.cn"    description="Your tracking ID for amazon.cn" />  
+            </fieldset>
+        </fields>
+    </config>    
+</extension>
