@@ -46,7 +46,7 @@ class plgSystemAmazonLinkGlobal extends JPlugin {
      * @see link_replacer 
      */
     const amzn_keyw_pattern = '#(?:http:\/\/)?(?:www\.)?(?:amazon\.)(?:com\/)(?:(?:gp\/search\/)|(?:s\/))(?:[^"]*)(?:keywords=)([^"&]*)(?:[^"]*)?#';
-     
+    
     function plgSystemAmazonLinkGlobal(& $subject, $config){
         parent::__construct($subject, $config);
     }
@@ -164,19 +164,19 @@ class plgSystemAmazonLinkGlobal extends JPlugin {
     public function onAfterRender()
     {
         // Don't run this in the backend
-        $app = JFactory::getApplication();
-        if($app->isAdmin()) {
+        $appCms = JFactory::getApplication();
+        if($appCms->isAdmin()) {
             return;
         }
         // Process whole html body
-        $body = JResponse::getBody(); // JApplicationWeb::getBody() for 3.X
+        $body = $appCms->getBody();
         $body = preg_replace_callback(self::link_pattern,
                                       Array($this, 'link_replacer'),
                                       $body);
         if ($body != NULL) {
-            JResponse::setBody($body); // JApplicationWeb::setBody() for 3.X
+            $appCms->setBody($body);
         }
-       
+        
         return;
     }
 }

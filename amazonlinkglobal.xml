@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?> 
-<extension version="2.5" type="plugin" group="system">
+<extension version="3.0" type="plugin" group="system">
     <name>Amazon Link Globalizer</name>
     <author>Attila Gyoerkoes, Markus Goetz </author>
     <creationDate>May 3th, 2013</creationDate>
@@ -10,8 +10,10 @@
     <version>1.2</version>
     <description>
         This plugin will automatically rewrite all Amazon.com/Amzn.com links with an ASIN or keyword inside your posts
-        to point to the &lt;a href="http://www.affiliate-geo-target.com/amazon.html"&gt;A-FWD&lt;/a&gt; webservice. This webservice
+        to point to the &lt;a href="http://a-fwd.com"&gt;A-FWD&lt;/a&gt; webservice. This webservice
         will determine the users location (using IP Geolocation) and then forward them to their appropriate country store. 
+        &lt;br&gt; &lt;br&gt;
+        Please visit &lt;a href="http://a-fwd.com"&gt;http://a-fwd.com&lt;/a&gt; for detailed information.
         &lt;br&gt; &lt;br&gt;
         Note: Woboq is sponsoring the server and bandwidth for the A-FWD GeoIP technology. In exchange for that, 1% of your visitors/clicks 
         will be using our affiliate ID instead of yours. We will also add our ID if you don't specify one for a certain 
