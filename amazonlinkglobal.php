@@ -1,9 +1,14 @@
  <?php
  /** 
-  * @version 1.1
-  * @copyright 2013 Woboq UG (haftungsbeschraenkt)
+  * 
+  * @link http://a-fwd.com
+  * @version 1.2
+  * 
   * @license GPL v2.0
-  * @author Attila Gyoerkoes <gyoerkaa@outlook.com>, Markus Goetz <markus@woboq.com>
+  * @copyright 2013 Woboq UG (haftungsbeschraenkt)
+  * @author Attila Gyoerkoes <gyoerkaa@outlook.com>
+  * @author Markus Goetz <markus@woboq.com>
+  * 
   */
 
 // no direct access
@@ -13,7 +18,7 @@ jimport('joomla.plugin.plugin');
 
 class plgSystemAmazonLinkGlobal extends JPlugin {
 
-    private $afwd_tlds = array('com', 'ca', 'uk', 'de', 'fr', 'es', 'it', 'cn', 'jp');
+    private $afwd_tlds = array('com', 'ca', 'uk', 'de', 'fr', 'it', 'es', 'jp', 'cn', 'in', 'br', 'au', 'mx');
 
     /**
      * Regular expression
@@ -97,9 +102,10 @@ class plgSystemAmazonLinkGlobal extends JPlugin {
      * @return string new achnor with an URL pointing to a-fwd.com
      */
     private function link_replacer($match) {
-        $attributes1 = $match[1];
-        $url         = $match[2];
-        $attributes2 = $match[3];
+        $attributes1    = $match[1];
+        $url            = $match[2];
+        $attributes2    = $match[3];
+        $add_url_params = '';
         $found_matches = 0; // count matches
         
         // Try replacing asin links
@@ -119,8 +125,9 @@ class plgSystemAmazonLinkGlobal extends JPlugin {
                                          -1,
                                          $found_matches);
         }
-        // Build link, but don't do anything, if no replacements were made
+        // Build link only if replacements were made
         if ($found_matches > 0) {
+            // We don't want search engines going there
             // Change 'rel' attribute to 'nofollow'
             $attributes1 = preg_replace('#rel\s*=\s*"[^"]+"#',
                                         'rel="nofollow"',
@@ -136,10 +143,19 @@ class plgSystemAmazonLinkGlobal extends JPlugin {
             }
             // No 'rel' attribute found, append one
             if ($found_matches <= 0) {
-                $attributes2 = $attributes2.' rel="nofollow"';
+                $attributes2 .= ' rel="nofollow"';
             }
+            // Additional url parameters
+            if ($this->params->get('url_fallback', 1) != '') {
+                $add_url_params .= '&fb='.$this->params->get('url_fallback', 1);
+            }
+            if ($this->params->get('url_ascsubtag') != '') {
+                $add_url_params .= '&ascsubtag='.$this->params->get('url_ascsubtag', 1);
+            }
+            $add_url_params .= '&sc=j';
+            
             // Build the actual link
-            $new_link = '<a '.$attributes1.' href="'.$url.'" '.$attributes2.'>';
+            $new_link = '<a '.$attributes1.' href="'.$url.$add_url_params.'" '.$attributes2.'>';
             return $new_link;
         }
         return $match[0];
@@ -153,12 +169,12 @@ class plgSystemAmazonLinkGlobal extends JPlugin {
             return;
         }
         // Process whole html body
-        $body = JResponse::getBody();
+        $body = JResponse::getBody(); // JApplicationWeb::getBody() for 3.X
         $body = preg_replace_callback(self::link_pattern,
                                       Array($this, 'link_replacer'),
                                       $body);
         if ($body != NULL) {
-            JResponse::setBody($body);
+            JResponse::setBody($body); // JApplicationWeb::setBody() for 3.X
         }
        
         return;

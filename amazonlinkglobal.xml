@@ -6,14 +6,16 @@
     <copyright>2013 Woboq UG (haftungsbeschraenkt)</copyright>
     <license>GPL v2.0</license>
     <authorEmail>&lt;gyoerkaa@outlook.com&gt;, &lt;markus@woboq.com&gt;</authorEmail>
-    <authorUrl>http://www.affiliate-geo-target.com/</authorUrl>
-    <version>1.1</version>
+    <authorUrl>http://a-fwd.com</authorUrl>
+    <version>1.2</version>
     <description>
         This plugin will automatically rewrite all Amazon.com/Amzn.com links with an ASIN or keyword inside your posts
         to point to the &lt;a href="http://www.affiliate-geo-target.com/amazon.html"&gt;A-FWD&lt;/a&gt; webservice. This webservice
-        will determine the users location (using IP Geolocation) and then forward them to their appropriate country store. &lt;br&gt;
-        Note: To run the geolocation service, A-FWD takes its own Affiliate ID for each n-th request or 
-        if you do not specify an ID for that country.
+        will determine the users location (using IP Geolocation) and then forward them to their appropriate country store. 
+        &lt;br&gt; &lt;br&gt;
+        Note: Woboq is sponsoring the server and bandwidth for the A-FWD GeoIP technology. In exchange for that, 1% of your visitors/clicks 
+        will be using our affiliate ID instead of yours. We will also add our ID if you don't specify one for a certain 
+        Amazon store your user is redirected to. 
     </description>
     <files>
         <filename plugin="amazonlinkglobal">amazonlinkglobal.php</filename>
@@ -21,29 +23,59 @@
     <config>
     	<fields name="params">
             <fieldset name="basic">
-                <field name="spacer_repl_options" 
-                       type="spacer" 
-                       default="Replacement Options" 
+                <field name="spacer_repl_options"
+                       type="spacer"
+                       default="Replacement Options"
                        label="&lt;span style=&quot;font-weight: bold;&quot;&gt;Replacement Options&lt;/ span&gt;" 
-                       description="Choose which kinds of links should be replaced" />   
+                       description="Choose which kinds of links should be replaced" />
 				<field name="enabled_asin_repl"
                        type="radio"
-					   default="1"
 					   class="btn-group"
 					   label="Replace ASIN links"
-					   description="Replace amazon links containing an asin" >
+					   description="Replace amazon links containing an asin"
+                       default="1" >
 					<option value="0">JNO</option>
 					<option value="1">JYES</option>
 				</field>
 				<field name="enabled_keyw_repl" 
                        type="radio"
-					   default="1"
 					   class="btn-group"
 					   label="Replace keyword links"
-					   description="Replace amazon links containing keywords" >
+					   description="Replace amazon links containing keywords"
+                       default="1" >
 					<option value="0">JNO</option>
 					<option value="1">JYES</option>
 				</field>
+ 
+                <field name="spacer_url_parameters" 
+                       type="spacer" 
+                       default="Additional URL Parameters" 
+                       label="&lt;span style=&quot;font-weight: bold;&quot;&gt;Additional URL Parameters&lt;/ span&gt;"
+                       description="Choose which kinds of links should be replaced" />   
+				<field name="url_ascsubtag" 
+                       type="text"
+                       default=""
+                       label="Associate Sub-Tag"
+                       description="Associate Sub-Tag" />
+                <field name="url_fallback" 
+                       type="list" 
+                       label="Fallback" 
+                       description="Fallback if there is no ASIN for a country"
+                       default="com" >
+                    <option value="au">Amazon.AU</option>
+                    <option value="br">Amazon.BR</option>
+                    <option value="ca">Amazon.CA</option>
+                    <option value="cn">Amazon.CN</option>
+                    <option value="co.uk">Amazon.CO.UK</option>
+                    <option value="com">Amazon.COM</option>
+                    <option value="de">Amazon.DE</option>
+                    <option value="es">Amazon.ES</option>
+                    <option value="fr">Amazon.FR</option>
+                    <option value="in">Amazon.IN</option>
+                    <option value="it">Amazon.IT</option>
+                    <option value="mx">Amazon.MX</option>
+                </field>    
+                    
                 <field name="spacer_tid_list" 
                        type="spacer" 
                        default="Affiliate IDs" 
@@ -94,6 +126,26 @@
                        default=""
                        label="amazon.cn"
                        description="Your tracking ID for amazon.cn" />
+                <field name="amzn_tid_in"
+                       type="text"
+                       default=""
+                       label="amazon.in"
+                       description="Your tracking ID for amazon.in" />
+                <field name="amzn_tid_br"
+                       type="text"
+                       default=""
+                       label="amazon.br"
+                       description="Your tracking ID for amazon.br" /> 
+                <field name="amzn_tid_au"
+                       type="text"
+                       default=""
+                       label="amazon.au"
+                       description="Your tracking ID for amazon.au" /> 
+                <field name="amzn_tid_mx"
+                       type="text"
+                       default=""
+                       label="amazon.mx"
+                       description="Your tracking ID for amazon.mx" />                        
             </fieldset>
         </fields>
     </config>
