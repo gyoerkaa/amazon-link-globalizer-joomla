@@ -2,7 +2,7 @@
  /** 
   * 
   * @link http://a-fwd.com
-  * @version 1.2
+  * @version 1.3
   * 
   * @license GPL v2.0
   * @copyright 2013 Woboq UG (haftungsbeschraenkt)

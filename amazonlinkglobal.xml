@@ -7,7 +7,7 @@
     <license>GPL v2.0</license>
     <authorEmail>&lt;gyoerkaa@outlook.com&gt;, &lt;markus@woboq.com&gt;</authorEmail>
     <authorUrl>http://a-fwd.com</authorUrl>
-    <version>1.2</version>
+    <version>1.3</version>
     <description>
         This plugin will automatically rewrite all Amazon.com/Amzn.com links with an ASIN or keyword inside your posts
         to point to the &lt;a href="http://a-fwd.com"&gt;A-FWD&lt;/a&gt; webservice. This webservice
