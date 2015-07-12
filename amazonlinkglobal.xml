@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?> 
+<?xml version="1.0" encoding="utf-8"?>
 <extension version="3.0" type="plugin" group="system">
     <name>Amazon Link Globalizer</name>
     <author>Attila Gyoerkoes, Markus Goetz </author>
@@ -68,7 +68,7 @@
                     <option value="br">Amazon.BR</option>
                     <option value="ca">Amazon.CA</option>
                     <option value="cn">Amazon.CN</option>
-                    <option value="co.uk">Amazon.CO.UK</option>
+                    <option value="uk">Amazon.CO.UK</option>
                     <option value="com">Amazon.COM</option>
                     <option value="de">Amazon.DE</option>
                     <option value="es">Amazon.ES</option>
@@ -76,8 +76,13 @@
                     <option value="in">Amazon.IN</option>
                     <option value="it">Amazon.IT</option>
                     <option value="mx">Amazon.MX</option>
-                </field>    
-                    
+                </field>
+				<field name="url_custom" 
+                       type="text"
+                       default=""
+                       label="Custom"
+                       description="Custom Url parameters (e.g. &apos;&amp;myPara1=myVal1&amp;myPara2=myVal2&apos;)" />
+                
                 <field name="spacer_tid_list" 
                        type="spacer" 
                        default="Affiliate IDs" 

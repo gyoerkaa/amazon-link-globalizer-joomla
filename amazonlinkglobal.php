@@ -152,6 +152,9 @@ class plgSystemAmazonLinkGlobal extends JPlugin {
             if ($this->params->get('url_ascsubtag') != '') {
                 $add_url_params .= '&ascsubtag='.$this->params->get('url_ascsubtag', 1);
             }
+            if ($this->params->get('url_custom') != '') {
+                $add_url_params .= $this->params->get('url_custom', 1);
+            }
             $add_url_params .= '&sc=j';
             
             // Build the actual link
