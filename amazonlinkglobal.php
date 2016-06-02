@@ -1,14 +1,14 @@
  <?php
- /** 
-  * 
+ /**
+  *
   * @link http://a-fwd.com
   * @version 1.3
-  * 
+  *
   * @license GPL v2.0
   * @copyright 2013 Woboq UG (haftungsbeschraenkt)
   * @author Attila Gyoerkoes <gyoerkaa@outlook.com>
   * @author Markus Goetz <markus@woboq.com>
-  * 
+  *
   */
 
 // no direct access
@@ -32,21 +32,23 @@ class plgSystemAmazonLinkGlobal extends JPlugin {
     /**
      * Regular expression
      * matches URLs to amazon.com containing an asin
-     * 
+     *
      * @var string
-     * @see link_replacer  
+     * @see link_replacer
      */
-    const amzn_asin_pattern  = '#(?:http:\/\/)?(?:www\.)?(?:(?:amazon\.com/(?:[\w-&%]+\/)?(?:o\/ASIN|dp|ASIN|gp\/product|exec\/obidos\/ASIN)\/)|(?:amzn\.com\/))([A-Z0-9]{10})(?:[^"]+)?#';
+    //const amzn_asin_pattern  = '#(?:http:\/\/)?(?:www\.)?(?:(?:amazon\.com/(?:[\w-&%]+\/)?(?:o\/ASIN|dp|ASIN|gp\/product|exec\/obidos\/ASIN)\/)|(?:amzn\.com\/))([A-Z0-9]{10})(?:[^"]+)?#';
+    const amzn_asin_pattern  = '#(?:(http|https):\/\/)?(?:www\.)?(?:(?:amazon\.com/(?:[\w-&%]+\/)?(?:o\/ASIN|dp|ASIN|gp\/product|exec\/obidos\/ASIN)\/)|(?:amzn\.com\/))([A-Z0-9]{10})(?:[^"]+)?#';
 
     /**
      * Regular expression
      * matches URLs to amazon.com containing keywords
      *
-     * @var string 
-     * @see link_replacer 
+     * @var string
+     * @see link_replacer
      */
-    const amzn_keyw_pattern = '#(?:http:\/\/)?(?:www\.)?(?:amazon\.)(?:com\/)(?:(?:gp\/search\/)|(?:s\/))(?:[^"]*)(?:keywords=)([^"&]*)(?:[^"]*)?#';
-    
+    //const amzn_keyw_pattern = '#(?:http:\/\/)?(?:www\.)?(?:amazon\.)(?:com\/)(?:(?:gp\/search\/)|(?:s\/))(?:[^"]*)(?:keywords=)([^"&]*)(?:[^"]*)?#';
+    const amzn_keyw_pattern = '#(?:(http|https):\/\/)?(?:www\.)?(?:amazon\.)(?:com\/)(?:(?:gp\/search\/)|(?:s\/))(?:[^"]*)(?:keywords=)([^"&]*)(?:[^"]*)?#';
+
     function plgSystemAmazonLinkGlobal(& $subject, $config){
         parent::__construct($subject, $config);
     }
@@ -61,7 +63,7 @@ class plgSystemAmazonLinkGlobal extends JPlugin {
      * @see link_replacer
      */
     private function asin_url_replacer($match) {
-        $asin = $match[1];
+        $asin = $match[2];
         $new_url = 'http://a-fwd.com/asin-com='.$asin;
         // Append tracking ids for every country specified
         foreach ($this->afwd_tlds as $tld) {
@@ -82,7 +84,7 @@ class plgSystemAmazonLinkGlobal extends JPlugin {
      * @see link_replacer
      */
     private function keyw_url_replacer($match) {
-        $keywords = $match[1];
+        $keywords = $match[2];
         $new_url = 'http://a-fwd.com/s='.$keywords;
         // Append tracking ids for every country specified
         foreach ($this->afwd_tlds as $tld) {
@@ -97,7 +99,7 @@ class plgSystemAmazonLinkGlobal extends JPlugin {
      * Callback for preg_replace_callback. Tries to replace html anchors
      * containing amazon URLs with anchors containing URLs to the
      * a-fwd.com webservice
-     * 
+     *
      * @param anchor with an URL pointing to amazon.com
      * @return string new achnor with an URL pointing to a-fwd.com
      */
@@ -107,20 +109,20 @@ class plgSystemAmazonLinkGlobal extends JPlugin {
         $attributes2    = $match[3];
         $add_url_params = '';
         $found_matches = 0; // count matches
-        
+
         // Try replacing asin links
         if ($this->params->get('enabled_asin_repl', 1) == 1) {
-            $url = preg_replace_callback(self::amzn_asin_pattern, 
-                                        Array($this, 'asin_url_replacer'), 
+            $url = preg_replace_callback(self::amzn_asin_pattern,
+                                        Array($this, 'asin_url_replacer'),
                                         $url,
                                         -1,
                                         $found_matches);
         }
         // Try replacing keyword links
-        if ( ($found_matches <= 0) && 
+        if ( ($found_matches <= 0) &&
              ($this->params->get('enabled_keyw_repl', 1) == 1) ) {
-            $url = preg_replace_callback(self::amzn_keyw_pattern, 
-                                         Array($this, 'keyw_url_replacer'), 
+            $url = preg_replace_callback(self::amzn_keyw_pattern,
+                                         Array($this, 'keyw_url_replacer'),
                                          $url,
                                          -1,
                                          $found_matches);
@@ -156,7 +158,7 @@ class plgSystemAmazonLinkGlobal extends JPlugin {
                 $add_url_params .= $this->params->get('url_custom', 1);
             }
             $add_url_params .= '&sc=j';
-            
+
             // Build the actual link
             $new_link = '<a '.$attributes1.' href="'.$url.$add_url_params.'" '.$attributes2.'>';
             return $new_link;
@@ -179,7 +181,7 @@ class plgSystemAmazonLinkGlobal extends JPlugin {
         if ($body != NULL) {
             $appCms->setBody($body);
         }
-        
+
         return;
     }
 }
